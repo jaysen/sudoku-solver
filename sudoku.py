@@ -15,22 +15,24 @@ sugrid = np.matrix([[5,3,0,0,7,0,0,0,0],
 
 def isValidInPosition(x, y, n):
     #test prints:
+    print("current value at x,y is ", sugrid[y,x])
     print("vertical:")
     print(sugrid[0:9,x:x+1])
     print("horizontal:")
     print(sugrid[y:y+1,0:9])
     print()
     # check vertical and horizontal
-    if (n in sugrid[0:9,x:x+1]): return False #vertical
-    if (n in sugrid[y:y+1,0:9]): return False #horizontal
+    if (n in sugrid[0:9,x]): return False #vertical
+    if (n in sugrid[y,0:9]): return False #horizontal
 
     # check local square
     xO = (x // 3) * 3
     yO = (y // 3) * 3
+    print("local square origin: ",xO,yO)
     print("local square: ")
-    print(sugrid[xO:xO+3,yO:yO+3])
+    print(sugrid[yO:yO+3,xO:xO+3])
     print()
-    if (n in sugrid[xO*3:xO*3+3,yO*3:yO*3+3]): return False
+    if (n in sugrid[yO:yO+3,xO:xO+3]): return False
 
     return True
 
