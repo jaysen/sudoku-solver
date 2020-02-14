@@ -10,24 +10,20 @@ grid =   np.matrix([[5,3,0,0,7,0,0,0,0],
                     [0,0,0,4,1,9,0,0,5],
                     [0,0,0,0,8,0,0,7,9]])
 
+
 def isValidInPosition(x,y, n):
     global grid
 
     # check vertical and horizontal
-    row = grid[x,:]
-    col = grid[:,y]
-    if (n in row): return False #vertical
-    if (n in col): return False #horizontal
+    if (n in grid[x,:]): return False #vertical
+    if (n in grid[:,y]): return False #horizontal
 
     # check local square
     xO = (x // 3) * 3
     yO = (y // 3) * 3
-    block = grid[xO:xO+3,yO:yO+3]
-    if (n in block): return False
+    if (n in grid[xO:xO+3,yO:yO+3]): return False
 
     return True
-
-print(isValidInPosition(2,1,7))    
 
 def solveGrid():
     global grid
