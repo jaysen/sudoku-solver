@@ -10,8 +10,8 @@ grid =   np.matrix([[5,3,0,0,7,0,0,0,0],
                     [0,0,0,4,1,9,0,0,5],
                     [0,0,0,0,8,0,0,7,9]])
 
-
-def isValidInPosition(x,y, n):
+# check if n is valid at position x,y
+def valid(x,y, n):
     global grid
 
     # check vertical and horizontal
@@ -25,18 +25,19 @@ def isValidInPosition(x,y, n):
 
     return True
 
-def solveGrid():
+# recursively solves sudoku grid by brute force and backtracking
+def solve():
     global grid
     for x in range(9):
         for y in range(9):
             if grid[x,y] == 0:
                 for n in range(1,10):
-                    if (isValidInPosition(x,y,n)):
+                    if valid(x,y,n):
                         grid[x,y] = n
-                        solveGrid()
+                        solve()
                         grid[x,y] = 0
                 return
     print(grid)
 
-
-solveGrid()
+if __name__ == "__main__":
+    solve()
