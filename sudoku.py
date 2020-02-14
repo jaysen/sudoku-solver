@@ -1,9 +1,6 @@
 import numpy as np
 
-GRIDSIZE = 9
-fullSet = {1, 2, 3, 4, 5, 6, 7, 8, 9}
-
-sugrid = np.matrix([[5,3,0,0,7,0,0,0,0],
+grid =   np.matrix([[5,3,0,0,7,0,0,0,0],
                     [6,0,0,1,9,5,0,0,0],
                     [0,9,8,0,0,0,0,6,0],
                     [8,0,0,0,6,0,0,0,3],
@@ -13,27 +10,37 @@ sugrid = np.matrix([[5,3,0,0,7,0,0,0,0],
                     [0,0,0,4,1,9,0,0,5],
                     [0,0,0,0,8,0,0,7,9]])
 
-def isValidInPosition(x, y, n):
-    #test prints:
-    print("current value at x,y is ", sugrid[y,x])
-    print("vertical:")
-    print(sugrid[0:9,x:x+1])
-    print("horizontal:")
-    print(sugrid[y:y+1,0:9])
-    print()
+def isValidInPosition(x,y, n):
+    global grid
+
     # check vertical and horizontal
-    if (n in sugrid[0:9,x]): return False #vertical
-    if (n in sugrid[y,0:9]): return False #horizontal
+    row = grid[x,:]
+    col = grid[:,y]
+    if (n in row): return False #vertical
+    if (n in col): return False #horizontal
 
     # check local square
     xO = (x // 3) * 3
     yO = (y // 3) * 3
-    print("local square origin: ",xO,yO)
-    print("local square: ")
-    print(sugrid[yO:yO+3,xO:xO+3])
-    print()
-    if (n in sugrid[yO:yO+3,xO:xO+3]): return False
+    block = grid[xO:xO+3,yO:yO+3]
+    if (n in block): return False
 
     return True
 
-print(isValidInPosition(3,3,2))    
+print(isValidInPosition(2,1,7))    
+
+def solveGrid():
+    global grid
+    for x in range(9):
+        for y in range(9):
+            if grid[x,y] == 0:
+                for n in range(1,10):
+                    if (isValidInPosition(x,y,n)):
+                        grid[x,y] = n
+                        solveGrid()
+                        grid[x,y] = 0
+                return
+    print(grid)
+
+
+solveGrid()
