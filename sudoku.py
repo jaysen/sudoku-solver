@@ -10,6 +10,18 @@ grid =   np.matrix([[5,3,0,0,7,0,0,0,0],
                     [0,0,0,4,1,9,0,0,5],
                     [0,0,0,0,8,0,0,7,9]])
 
+                    
+grid =   np.matrix([[1,0,0,2,0,0,0,0,7],
+                    [0,0,0,0,0,0,6,9,0],
+                    [7,0,0,3,0,0,8,0,0],
+                    [5,6,0,9,0,8,0,0,0],
+                    [0,2,0,7,0,0,0,0,1],
+                    [0,0,0,0,0,0,0,0,0],
+                    [0,0,4,0,7,0,0,0,5],
+                    [2,5,0,8,0,0,9,0,0],
+                    [0,0,0,0,4,0,0,0,0]])
+
+
 # check if n is valid at position x,y
 def valid(x,y, n):
     global grid
@@ -25,7 +37,9 @@ def valid(x,y, n):
 
     return True
 
-# recursively solves sudoku grid by brute force and backtracking
+
+# Recursively brute force the grid to solve
+# backtrack when your solution leads to something with no valid options for a cell
 def solve():
     global grid
     for x in range(9):
